@@ -1,14 +1,14 @@
 import React from 'react';
 import { Chessboard } from 'react-chessboard';
 import { Chess } from 'chess.js';
-import { Box, Paper, Button, Typography, useTheme } from '@mui/material';
+import { Box, Paper, Button, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useOpeningStore } from '../../store/openingStore';
 
-const ChessboardContainer = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(2),
+const ChessboardContainer = styled(Paper)(() => ({
+  padding: '16px',
   backgroundColor: '#2F3542',
-  borderRadius: theme.spacing(1),
+  borderRadius: '8px',
   boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
   maxWidth: '600px',
   margin: '0 auto',
@@ -16,7 +16,7 @@ const ChessboardContainer = styled(Paper)(({ theme }) => ({
   position: 'relative',
 }));
 
-const CoordinateLabel = styled(Typography)(({ theme }) => ({
+const CoordinateLabel = styled(Typography)(() => ({
   position: 'absolute',
   fontSize: '0.75rem',
   fontWeight: 'bold',

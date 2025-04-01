@@ -246,7 +246,11 @@ export const OpeningStudy: React.FC = () => {
                   key={index}
                   label={move}
                   onClick={() => handleMoveClick(index)}
-                  selected={index === currentMoveIndex}
+                  color={index === currentMoveIndex ? "primary" : "default"}
+                  sx={{
+                    backgroundColor: index === currentMoveIndex ? '#4A90E2' : '#E3F2FD',
+                    color: index === currentMoveIndex ? '#FFFFFF' : '#4A90E2',
+                  }}
                 />
               ))}
             </MoveList>
