@@ -6,6 +6,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { ChessBoard } from '../ChessBoard';
 import { MoveAnalysis } from '../MoveAnalysis';
 import { useOpeningStore } from '../../store/openingStore';
+import { Chess } from 'chess.js';
 
 const Container = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -158,7 +159,8 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
 }));
 
 export const OpeningStudy: React.FC = () => {
-  const { currentPosition, moves, currentMoveIndex, setCurrentMoveIndex } = useOpeningStore();
+  const { currentPosition, moves, currentMoveIndex, setCurrentMoveIndex, updatePosition } = useOpeningStore();
+  const chess = new Chess(currentPosition);
 
   const handleNextMove = () => {
     if (currentMoveIndex < moves.length - 1) {
@@ -176,8 +178,25 @@ export const OpeningStudy: React.FC = () => {
     setCurrentMoveIndex(index);
   };
 
-  const handlePieceDrop = (sourceSquare: string, targetSquare: string) => {
-    // 处理棋子放置逻辑
+  const handlePieceDrop = (sourceSquare: string, targetSquare: string, piece: string): boolean => {
+    try {
+      // 检查移动是否合法
+      const move = chess.move({
+        from: sourceSquare,
+        to: targetSquare,
+        promotion: 'q' // 默认升变为皇后
+      });
+      
+      if (move) {
+        // 更新当前局面
+        updatePosition(chess.fen());
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error('移动错误:', error);
+      return false;
+    }
   };
 
   return (
