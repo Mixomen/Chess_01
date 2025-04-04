@@ -151,18 +151,13 @@ export const useOpeningStore = create<OpeningStore>((set, get) => ({
   }),
 
   nextMove: () => set((state) => {
-    if (!state.selectedOpening || !state.currentNode || !state.currentNode.children || state.currentNode.children.length === 0) {
-      return state;
-    }
+    if (!state.selectedOpening) return state;
     
     // 在移动到下一步之前，保存当前状态到历史记录
     const currentState = {
       position: state.currentPosition,
       node: state.currentNode
     };
-    
-    // 获取当前节点的第一个子节点
-    const nextNode = state.currentNode.children[0];
     
     // 检查当前FEN字符串是否是初始局面
     const isInitialPosition = state.currentPosition === 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' || 
@@ -179,6 +174,14 @@ export const useOpeningStore = create<OpeningStore>((set, get) => ({
         currentMoveIndex: state.currentMoveIndex + 1
       };
     }
+    
+    // 如果不是初始局面，检查是否有子节点
+    if (!state.currentNode || !state.currentNode.children || state.currentNode.children.length === 0) {
+      return state;
+    }
+    
+    // 获取当前节点的第一个子节点
+    const nextNode = state.currentNode.children[0];
     
     return {
       currentPosition: nextNode.fen,

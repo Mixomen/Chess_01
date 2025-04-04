@@ -2429,5 +2429,157 @@ export const openings: Opening[] = [
       '忽视发展速度',
       '错误的子力布局'
     ]
+  },
+  {
+    ecoCode: 'A10',
+    name: '英国开局',
+    category: '封闭性开局',
+    description: '英国开局以1.c4为特征，是一种灵活的开局，可以演变成多种不同的局面。白方通过控制d5格来影响中心。',
+    players: {
+      white: 'botvinnik',
+      black: 'smyslov',
+      scores: {
+        white: 1,
+        black: 0
+      }
+    },
+    mainLine: {
+      id: 'a10_main_1',
+      move: {
+        from: 'c2',
+        to: 'c4',
+        piece: 'p',
+        san: 'c4'
+      },
+      fen: 'rnbqkbnr/pppppppp/8/8/2P5/8/PP1PPPPP/RNBQKBNR b KQkq - 0 1',
+      children: [
+        {
+          id: 'a10_main_2',
+          move: {
+            from: 'e7',
+            to: 'e5',
+            piece: 'p',
+            san: 'e5'
+          },
+          fen: 'rnbqkbnr/pppp1ppp/8/4p3/2P5/8/PP1PPPPP/RNBQKBNR w KQkq - 0 2',
+          children: [
+            {
+              id: 'a10_main_3',
+              move: {
+                from: 'g1',
+                to: 'f3',
+                piece: 'n',
+                san: 'Nf3'
+              },
+              fen: 'rnbqkbnr/pppp1ppp/8/4p3/2P5/5N2/PP1PPPPP/RNBQKB1R b KQkq - 1 2',
+              children: [
+                {
+                  id: 'a10_main_4',
+                  move: {
+                    from: 'b8',
+                    to: 'c6',
+                    piece: 'n',
+                    san: 'Nc6'
+                  },
+                  fen: 'r1bqkbnr/pppp1ppp/2n5/4p3/2P5/5N2/PP1PPPPP/RNBQKB1R w KQkq - 2 3',
+                  children: [],
+                  strategicIdea: '黑方发展骑士控制中心'
+                }
+              ],
+              strategicIdea: '白方发展王翼骑士'
+            }
+          ],
+          strategicIdea: '黑方占据中心'
+        }
+      ],
+      strategicIdea: '白方控制d5格'
+    },
+    strategicThemes: [
+      '控制中心',
+      '灵活发展',
+      '后翼空间优势',
+      '中心控制'
+    ],
+    commonTraps: [
+      '过早展开后翼攻势',
+      '忽视中心控制',
+      '发展不协调'
+    ]
+  },
+  {
+    ecoCode: 'A04',
+    name: '列蒂开局',
+    category: '封闭性开局',
+    description: '列蒂开局以1.Nf3为特征，是一种灵活的开局，可以演变成多种不同的局面。白方通过控制中心来影响局面发展。',
+    players: {
+      white: 'reti',
+      black: 'capablanca',
+      scores: {
+        white: 1,
+        black: 0
+      }
+    },
+    mainLine: {
+      id: 'a04_main_1',
+      move: {
+        from: 'g1',
+        to: 'f3',
+        piece: 'n',
+        san: 'Nf3'
+      },
+      fen: 'rnbqkbnr/pppppppp/8/8/8/5N2/PPPPPPPP/RNBQKB1R b KQkq - 1 1',
+      children: [
+        {
+          id: 'a04_main_2',
+          move: {
+            from: 'd7',
+            to: 'd5',
+            piece: 'p',
+            san: 'd5'
+          },
+          fen: 'rnbqkbnr/ppp1pppp/8/3p4/8/5N2/PPPPPPPP/RNBQKB1R w KQkq - 0 2',
+          children: [
+            {
+              id: 'a04_main_3',
+              move: {
+                from: 'c2',
+                to: 'c4',
+                piece: 'p',
+                san: 'c4'
+              },
+              fen: 'rnbqkbnr/ppp1pppp/8/3p4/2P5/5N2/PP1PPPPP/RNBQKB1R b KQkq - 0 2',
+              children: [
+                {
+                  id: 'a04_main_4',
+                  move: {
+                    from: 'd5',
+                    to: 'c4',
+                    piece: 'p',
+                    san: 'dxc4'
+                  },
+                  fen: 'rnbqkbnr/ppp1pppp/8/8/2p5/5N2/PP1PPPPP/RNBQKB1R w KQkq - 0 3',
+                  children: [],
+                  strategicIdea: '黑方接受弃兵'
+                }
+              ],
+              strategicIdea: '白方展开后翼攻势'
+            }
+          ],
+          strategicIdea: '黑方占据中心'
+        }
+      ],
+      strategicIdea: '白方发展王翼骑士'
+    },
+    strategicThemes: [
+      '灵活发展',
+      '控制中心',
+      '后翼空间优势',
+      '中心控制'
+    ],
+    commonTraps: [
+      '过早展开后翼攻势',
+      '忽视中心控制',
+      '发展不协调'
+    ]
   }
 ];

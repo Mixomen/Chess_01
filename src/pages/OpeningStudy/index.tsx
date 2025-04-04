@@ -288,6 +288,7 @@ export const OpeningStudy: React.FC = () => {
         {/* 右侧：开局介绍和走法分析 */}
         <Grid item xs={12} md={3}>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <MoveAnalysis />
             <InfoPanel>
               <Typography 
                 variant="h6" 
@@ -345,7 +346,6 @@ export const OpeningStudy: React.FC = () => {
                 ))}
               </Box>
             </InfoPanel>
-            <MoveAnalysis />
           </Box>
         </Grid>
       </Grid>
