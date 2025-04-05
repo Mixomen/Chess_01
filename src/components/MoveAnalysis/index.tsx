@@ -1,7 +1,11 @@
 import React from 'react';
-import { Paper, Typography, useTheme, Fade, Chip, Divider } from '@mui/material';
+import { Paper, Typography, useTheme, Fade, Chip, Divider, Button, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useOpeningStore } from '../../store/openingStore';
+import { useLanguage } from '../../context/LanguageContext';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
 const AnalysisContainer = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1.5),
@@ -94,13 +98,21 @@ const IconWrapper = styled('span')({
 });
 
 export const MoveAnalysis: React.FC = () => {
-  const { getCurrentMoveAnalysis, currentMoveIndex, currentNode } = useOpeningStore();
+  const { t } = useLanguage();
+  const { 
+    getCurrentMoveAnalysis, 
+    currentMoveIndex, 
+    currentNode, 
+    nextMove, 
+    previousMove, 
+    resetPosition 
+  } = useOpeningStore();
   const { move, strategicIdea, stepNumber, notation } = getCurrentMoveAnalysis();
 
   const getFriendlyMove = (move: string) => {
     // 如果是初始局面，直接返回"开始局面"，不显示回合数
     if (move === '初始局面' || currentMoveIndex === 0) {
-      return '开始局面';
+      return t('moveAnalysis.title');
     }
     
     // 计算当前回合数（从1开始）
@@ -111,19 +123,22 @@ export const MoveAnalysis: React.FC = () => {
     
     // 构建回合显示文本，使用点号代替省略号
     if (isWhiteMove) {
-      return `第${turnNumber}回合：...${move}`;
+      return `${t('moveAnalysis.stepNumber')} ${turnNumber}: ...${move}`;
     } else {
-      return `第${turnNumber}回合：${move}...`;
+      return `${t('moveAnalysis.stepNumber')} ${turnNumber}: ${move}...`;
     }
   };
 
   const getFriendlyStrategy = (strategy: string) => {
     if (!strategy) return null;
-    return `策略分析：${strategy}`;
+    return `${t('moveAnalysis.strategy')}: ${strategy}`;
   };
 
   return (
     <AnalysisContainer>
+      <AnalysisTitle>
+        {t('moveAnalysis.title')}
+      </AnalysisTitle>
       <MoveNotation>
         {getFriendlyMove(move)}
       </MoveNotation>
@@ -151,6 +166,46 @@ export const MoveAnalysis: React.FC = () => {
           {getFriendlyStrategy(strategicIdea)}
         </StrategicIdea>
       )}
+      
+      {/* 添加控制按钮 */}
+      <Box sx={{ 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        mt: 2, 
+        gap: 1 
+      }}>
+        <Button 
+          variant="contained" 
+          color="primary" 
+          size="small" 
+          startIcon={<ArrowBackIcon />}
+          onClick={previousMove}
+          disabled={currentMoveIndex === 0}
+          sx={{ flex: 1 }}
+        >
+          {t('moveAnalysis.prev')}
+        </Button>
+        <Button 
+          variant="outlined" 
+          color="secondary" 
+          size="small" 
+          startIcon={<RestartAltIcon />}
+          onClick={resetPosition}
+          sx={{ flex: 1 }}
+        >
+          {t('moveAnalysis.reset')}
+        </Button>
+        <Button 
+          variant="contained" 
+          color="primary" 
+          size="small" 
+          endIcon={<ArrowForwardIcon />}
+          onClick={nextMove}
+          sx={{ flex: 1 }}
+        >
+          {t('moveAnalysis.next')}
+        </Button>
+      </Box>
     </AnalysisContainer>
   );
 };

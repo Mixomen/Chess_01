@@ -7,6 +7,8 @@ import { useOpeningStore } from '../../store/openingStore';
 import { players } from '../../data/players';
 import { MoveAnalysis } from '../../components/MoveAnalysis';
 import { Opening } from '../../types/chess';
+import { useLanguage } from '../../context/LanguageContext';
+import CommentBox from '../../components/CommentBox';
 
 const CategoryTitle = styled(Typography)(({ theme }) => ({
   fontFamily: '"Playfair Display", serif',
@@ -170,6 +172,7 @@ const IconWrapper = styled('span')({
 
 export const OpeningStudy: React.FC = () => {
   const theme = useTheme();
+  const { t } = useLanguage();
   const [selectedOpening, setSelectedOpening] = React.useState(openings[0]);
   const { currentPosition, selectOpening, resetPosition } = useOpeningStore();
 
@@ -208,7 +211,7 @@ export const OpeningStudy: React.FC = () => {
       backgroundColor: '#F5F5F5',
       minHeight: '100vh',
     }}>
-      {/* 添加标题部分 */}
+      {/* 标题部分 */}
       <Box 
         sx={{ 
           mb: 1,
@@ -241,7 +244,7 @@ export const OpeningStudy: React.FC = () => {
             }
           }}
         >
-          国象开局
+          {t('mainTitle')}
         </Typography>
         <Typography 
           variant="subtitle1" 
@@ -252,7 +255,7 @@ export const OpeningStudy: React.FC = () => {
             mb: 2
           }}
         >
-          探索国际象棋中的经典开局战略与战术
+          {t('subtitle')}
         </Typography>
       </Box>
       <Grid container spacing={2}>
@@ -285,7 +288,7 @@ export const OpeningStudy: React.FC = () => {
           </ChessboardContainer>
         </Grid>
 
-        {/* 右侧：开局介绍和走法分析 */}
+        {/* 右侧：开局介绍、走法分析和留言 */}
         <Grid item xs={12} md={3}>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             <MoveAnalysis />
@@ -325,7 +328,7 @@ export const OpeningStudy: React.FC = () => {
                   color: theme.palette.primary.main,
                 }}
               >
-                战略主题
+                {t('strategicThemes')}
               </Typography>
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                 {selectedOpening.strategicThemes.map((themeName, index) => (
@@ -346,6 +349,8 @@ export const OpeningStudy: React.FC = () => {
                 ))}
               </Box>
             </InfoPanel>
+            {/* 添加留言组件 */}
+            <CommentBox />
           </Box>
         </Grid>
       </Grid>
