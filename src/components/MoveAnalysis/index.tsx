@@ -136,9 +136,6 @@ export const MoveAnalysis: React.FC = () => {
 
   return (
     <AnalysisContainer>
-      <AnalysisTitle>
-        {t('moveAnalysis.title')}
-      </AnalysisTitle>
       <MoveNotation>
         {getFriendlyMove(move)}
       </MoveNotation>
