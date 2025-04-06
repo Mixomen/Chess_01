@@ -4,6 +4,7 @@ import { Chess } from 'chess.js';
 import { Box, Paper, Button, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useOpeningStore } from '../../store/openingStore';
+import { useLanguage } from '../../context/LanguageContext';
 
 const ChessboardContainer = styled(Paper)(() => ({
   padding: '16px',
@@ -66,6 +67,7 @@ interface ChessBoardProps {
 
 export const ChessBoard: React.FC<ChessBoardProps> = ({ position = 'start', onPieceDrop }) => {
   const [game, setGame] = React.useState(new Chess(position));
+  const { t } = useLanguage();
 
   React.useEffect(() => {
     const newGame = new Chess(position);
@@ -137,7 +139,7 @@ export const ChessBoard: React.FC<ChessBoardProps> = ({ position = 'start', onPi
             fontSize: '1rem',
           }}
         >
-          上一步
+          {t('moveAnalysis.prev')}
         </Button>
         <Button
           variant="contained"
@@ -154,7 +156,7 @@ export const ChessBoard: React.FC<ChessBoardProps> = ({ position = 'start', onPi
             fontSize: '1rem',
           }}
         >
-          下一步
+          {t('moveAnalysis.next')}
         </Button>
       </Box>
     </ChessboardContainer>

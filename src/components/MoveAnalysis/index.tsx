@@ -98,7 +98,7 @@ const IconWrapper = styled('span')({
 });
 
 export const MoveAnalysis: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { 
     getCurrentMoveAnalysis, 
     currentMoveIndex, 
@@ -131,7 +131,40 @@ export const MoveAnalysis: React.FC = () => {
 
   const getFriendlyStrategy = (strategy: string) => {
     if (!strategy) return null;
-    return `${t('moveAnalysis.strategy')}: ${strategy}`;
+    
+    // 尝试获取战略思想的翻译
+    let translatedStrategy = strategy;
+    if (language === 'de') {
+      // 首先尝试从strategicIdeas翻译中查找完整匹配
+      const fullTranslation = t(`strategicIdeas.${strategy}`);
+      if (fullTranslation !== `strategicIdeas.${strategy}`) {
+        translatedStrategy = fullTranslation;
+      } else {
+        // 如果没有找到完整匹配，可能是节点中的自定义策略
+        // 这里我们可以尝试翻译一些常见的策略术语
+        translatedStrategy = strategy
+          .replace('白方', 'Weiß')
+          .replace('黑方', 'Schwarz')
+          .replace('中心', 'Zentrum')
+          .replace('控制', 'kontrolliert')
+          .replace('发展', 'entwickelt')
+          .replace('骑士', 'Springer')
+          .replace('主教', 'Läufer')
+          .replace('皇后', 'Dame')
+          .replace('国王', 'König')
+          .replace('车', 'Turm')
+          .replace('兵', 'Bauer')
+          .replace('防御', 'Verteidigung')
+          .replace('攻势', 'Angriff')
+          .replace('占据', 'besetzt')
+          .replace('保护', 'schützt')
+          .replace('威胁', 'bedroht')
+          .replace('战略', 'Strategie')
+          .replace('战术', 'Taktik');
+      }
+    }
+    
+    return `${t('moveAnalysis.strategy')}: ${translatedStrategy}`;
   };
 
   return (

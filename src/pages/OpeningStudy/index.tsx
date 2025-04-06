@@ -9,6 +9,7 @@ import { MoveAnalysis } from '../../components/MoveAnalysis';
 import { Opening } from '../../types/chess';
 import { useLanguage } from '../../context/LanguageContext';
 import CommentBox from '../../components/CommentBox';
+import LanguageSwitcher from '../../components/LanguageSwitcher';
 
 const CategoryTitle = styled(Typography)(({ theme }) => ({
   fontFamily: '"Playfair Display", serif',
@@ -172,7 +173,7 @@ const IconWrapper = styled('span')({
 
 export const OpeningStudy: React.FC = () => {
   const theme = useTheme();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [selectedOpening, setSelectedOpening] = React.useState(openings[0]);
   const { currentPosition, selectOpening, resetPosition } = useOpeningStore();
 
@@ -222,30 +223,39 @@ export const OpeningStudy: React.FC = () => {
           alignItems: 'center',
         }}
       >
-        <Typography 
-          variant="h3" 
-          sx={{
-            fontFamily: '"Playfair Display", serif',
-            fontWeight: 700,
-            color: theme.palette.primary.main,
-            letterSpacing: '1px',
-            mb: 1,
-            position: 'relative',
-            display: 'inline-block',
-            '&::after': {
-              content: '""',
-              position: 'absolute',
-              bottom: -8,
-              left: '10%',
-              width: '80%',
-              height: 3,
-              backgroundColor: theme.palette.secondary.main,
-              borderRadius: 3,
-            }
-          }}
-        >
-          {t('mainTitle')}
-        </Typography>
+        <Box sx={{ 
+          display: 'flex', 
+          flexDirection: 'row', 
+          alignItems: 'center', 
+          justifyContent: 'center',
+          width: '100%',
+          mb: 2
+        }}>
+          <Typography 
+            variant="h3" 
+            sx={{
+              fontFamily: '"Playfair Display", serif',
+              fontWeight: 700,
+              color: theme.palette.primary.main,
+              letterSpacing: '1px',
+              position: 'relative',
+              display: 'inline-block',
+              '&::after': {
+                content: '""',
+                position: 'absolute',
+                bottom: -8,
+                left: '10%',
+                width: '80%',
+                height: 3,
+                backgroundColor: theme.palette.secondary.main,
+                borderRadius: 3,
+              }
+            }}
+          >
+            {t('mainTitle')}
+          </Typography>
+          <LanguageSwitcher />
+        </Box>
         <Typography 
           variant="subtitle1" 
           sx={{ 
@@ -265,7 +275,7 @@ export const OpeningStudy: React.FC = () => {
             {Object.entries(groupedOpenings).map(([category, openings]) => (
               <Box key={category} sx={{ mb: 2 }}>
                 <CategoryTitle variant="h6">
-                  {category}
+                  {t(`openingCategories.${category}`)}
                 </CategoryTitle>
                 {openings.map((opening) => (
                   <OpeningItem
@@ -273,7 +283,7 @@ export const OpeningStudy: React.FC = () => {
                     onClick={() => handleOpeningSelect(opening)}
                     className={selectedOpening?.name === opening.name ? 'selected' : ''}
                   >
-                    {opening.name}
+                    {t(`openingNames.${opening.name}`)}
                   </OpeningItem>
                 ))}
               </Box>
@@ -303,7 +313,7 @@ export const OpeningStudy: React.FC = () => {
                   color: theme.palette.primary.main,
                 }}
               >
-                {selectedOpening.name}
+                {t(`openingNames.${selectedOpening.name}`)}
               </Typography>
               <Typography 
                 variant="body2" 
@@ -315,7 +325,7 @@ export const OpeningStudy: React.FC = () => {
                   lineHeight: 1.6,
                 }}
               >
-                {selectedOpening.description}
+                {t(`openingDescriptions.${selectedOpening.name}`) || selectedOpening.description}
               </Typography>
               <Divider sx={{ my: 2 }} />
               <Typography 
@@ -334,7 +344,7 @@ export const OpeningStudy: React.FC = () => {
                 {selectedOpening.strategicThemes.map((themeName, index) => (
                   <Chip
                     key={index}
-                    label={themeName}
+                    label={t(`strategicThemesTranslations.${themeName}`)}
                     size="small"
                     sx={{
                       backgroundColor: theme.palette.primary.light,

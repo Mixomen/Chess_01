@@ -7,6 +7,7 @@ import { ChessBoard } from '../ChessBoard';
 import { MoveAnalysis } from '../MoveAnalysis';
 import { useOpeningStore } from '../../store/openingStore';
 import { Chess } from 'chess.js';
+import { useLanguage } from '../../context/LanguageContext';
 
 const Container = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -161,6 +162,7 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
 export const OpeningStudy: React.FC = () => {
   const { currentPosition, moves, currentMoveIndex, setCurrentMoveIndex, updatePosition } = useOpeningStore();
   const chess = new Chess(currentPosition);
+  const { t } = useLanguage();
 
   const handleNextMove = () => {
     if (currentMoveIndex < moves.length - 1) {
@@ -202,11 +204,9 @@ export const OpeningStudy: React.FC = () => {
   return (
     <Container>
       <Header>
-        <Title>
-          国际象棋开局学习
-        </Title>
-        <Subtitle>
-          让我们一起来学习国际象棋的开局吧！
+        <Title variant="h1">{t('pageTitle')}</Title>
+        <Subtitle variant="h2">
+          {t('subtitle')}
         </Subtitle>
       </Header>
       <MainContent>
@@ -227,7 +227,7 @@ export const OpeningStudy: React.FC = () => {
                 disabled={currentMoveIndex === moves.length - 1}
                 startIcon={<ChevronRightIcon />}
               >
-                下一步
+                {t('moveAnalysis.next')}
               </StyledButton>
               <StyledIconButton
                 onClick={handleNextMove}
@@ -239,7 +239,7 @@ export const OpeningStudy: React.FC = () => {
             </ButtonContainer>
           </ChessBoardContainer>
           <MoveListContainer>
-            <MoveListTitle>所有走法</MoveListTitle>
+            <MoveListTitle>{t('moveAnalysis.move')}</MoveListTitle>
             <MoveList>
               {moves.map((move, index) => (
                 <MoveChip

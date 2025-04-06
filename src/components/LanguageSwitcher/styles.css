@@ -1,0 +1,37 @@
+.language-switcher {
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
+}
+
+.language-btn {
+  padding: 5px 10px;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.language-btn:hover {
+  background-color: #f0f0f0;
+}
+
+.language-btn.active {
+  background-color: #4d4d4d;
+  color: white;
+  border-color: #4d4d4d;
+}
+
+@media (max-width: 768px) {
+  .language-switcher {
+    margin-left: 5px;
+  }
+  
+  .language-btn {
+    padding: 3px 6px;
+    font-size: 12px;
+  }
+} 
